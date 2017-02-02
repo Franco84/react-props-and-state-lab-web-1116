@@ -3,13 +3,21 @@ const React = require('react');
 const Pet = require('./Pet');
 
 class PetBrowser extends React.Component {
+
   render() {
-    return (
-      <div className="ui cards">
-        <code>&lt;Pet /&gt;</code> &nbsp; components should go here
-      </div>
-    );
+    var nameslist = []
+    let self = this
+    self.props.pets.forEach((pet)=>{
+      if(self.props.adoptedPets.includes(pet.id)){
+        nameslist.push(<div className="ui cards"><code> <Pet pet={pet} isAdopted={true} onAdoptPet={this.props.onAdoptPet}/> </code></div>)
+      }else{
+        nameslist.push(<div className="ui cards"><code> <Pet pet={pet} isAdopted={false} onAdoptPet={this.props.onAdoptPet}/> </code></div>)
+      }
+
+    })
+    return <div>{ nameslist }</div>
   }
+
 }
 
 module.exports = PetBrowser;
